@@ -206,6 +206,14 @@ type Row struct {
 	threadID uint32
 }
 
+func (r *Row) Sql() string {
+	return string(r.sql)
+}
+
+func (r *Row) Event() *replication.BinlogEvent {
+	return r.e
+}
+
 type baseParser struct {
 	ctx      context.Context
 	cancelFn context.CancelFunc
