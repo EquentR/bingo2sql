@@ -21,7 +21,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/hanchuanchuan/bingo2sql/core"
+	"github.com/EquentR/bingo2sql/core"
 	"github.com/pkg/profile"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"

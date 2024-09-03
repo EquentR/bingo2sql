@@ -186,6 +186,9 @@ type BinlogParserConfig struct {
 	ShowThread  bool // 输出线程号,方便判断同一执行人的操作
 
 	uniqueKey string
+
+	// 是否需要写入到io
+	needWrite bool
 }
 
 type Parser interface {
@@ -326,6 +329,12 @@ func (cfg *BinlogParserConfig) ID() string {
 		s2)
 }
 
+// GetChannel 获取channel做API用
+func (p *MyBinlogParser) GetChannel() chan *row {
+	p.cfg.needWrite = false
+	return p.ch
+}
+
 // Parser 远程解析
 func (p *MyBinlogParser) Parser() error {
 	// runtime.GOMAXPROCS(runtime.NumCPU())
@@ -406,8 +415,10 @@ func (p *MyBinlogParser) Parser() error {
 	sendTime := time.Now().Add(time.Second * 5)
 	sendCount := 0
 
-	wg.Add(1)
-	go p.ProcessChan(&wg)
+	if p.cfg.needWrite {
+		wg.Add(1)
+		go p.ProcessChan(&wg)
+	}
 
 	// var ctx context.Context
 
@@ -760,6 +771,8 @@ func NewBinlogParser(ctx context.Context, cfg *BinlogParserConfig) (*MyBinlogPar
 	if err := p.parseGtidSets(); err != nil {
 		return nil, err
 	}
+
+	p.cfg.needWrite = true
 
 	if len(cfg.SocketUser) > 0 {
 		p.outputFileName = fmt.Sprintf("files/%s.sql", p.cfg.ID())

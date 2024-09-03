@@ -1,4 +1,4 @@
-module github.com/hanchuanchuan/bingo2sql
+module github.com/EquentR/bingo2sql
 
 replace github.com/sirupsen/logrus => github.com/sirupsen/logrus v1.2.0
 
@@ -25,8 +25,6 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.6.2
 )
-
-require github.com/etcd-io/gofail v0.0.0-20180808172546-51ce9a71510a // indirect
 
 require (
 	github.com/andybalholm/brotli v0.0.0-20190621154722-5f990b63d2d6 // indirect

@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/EquentR/bingo2sql/core"
 	"github.com/go-mysql-org/go-mysql/client"
 	"github.com/go-mysql-org/go-mysql/mysql"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/hanchuanchuan/bingo2sql/core"
 	. "github.com/pingcap/check"
 	log "github.com/sirupsen/logrus"
 )

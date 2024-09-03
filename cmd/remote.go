@@ -19,7 +19,7 @@ import (
 	"context"
 	"math"
 
-	"github.com/hanchuanchuan/bingo2sql/core"
+	"github.com/EquentR/bingo2sql/core"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

@@ -7,7 +7,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/hanchuanchuan/bingo2sql/core"
+	"github.com/EquentR/bingo2sql/core"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/pkg/profile"
 	log "github.com/sirupsen/logrus"

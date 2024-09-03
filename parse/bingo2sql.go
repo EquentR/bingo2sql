@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hanchuanchuan/bingo2sql/core"
+	"github.com/EquentR/bingo2sql/core"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
