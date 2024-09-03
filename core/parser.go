@@ -335,6 +335,10 @@ func (p *MyBinlogParser) GetChannel() chan *row {
 	return p.ch
 }
 
+func (p *MyBinlogParser) GetPos() mysql.Position {
+	return p.currentPosition
+}
+
 // Parser 远程解析
 func (p *MyBinlogParser) Parser() error {
 	// runtime.GOMAXPROCS(runtime.NumCPU())
