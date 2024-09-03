@@ -195,8 +195,8 @@ type Parser interface {
 	write([]byte, *replication.BinlogEvent)
 }
 
-// row 协程解析binlog事件的通道
-type row struct {
+// Row 协程解析binlog事件的通道
+type Row struct {
 	sql  []byte
 	e    *replication.BinlogEvent
 	gtid []byte
@@ -227,7 +227,7 @@ type baseParser struct {
 
 	write1 Parser
 
-	ch chan *row
+	ch chan *Row
 
 	// currentBackupInfo BackupInfo
 
@@ -330,7 +330,7 @@ func (cfg *BinlogParserConfig) ID() string {
 }
 
 // GetChannel 获取channel做API用
-func (p *MyBinlogParser) GetChannel() chan *row {
+func (p *MyBinlogParser) GetChannel() chan *Row {
 	p.cfg.needWrite = false
 	return p.ch
 }
@@ -657,7 +657,7 @@ func (p *MyBinlogParser) Stop() {
 }
 
 func (p *MyBinlogParser) write(b []byte, binEvent *replication.BinlogEvent) {
-	data := &row{
+	data := &Row{
 		sql: b,
 		e:   binEvent,
 	}
@@ -684,7 +684,7 @@ func byteEquals(v1, v2 []byte) bool {
 	return true
 }
 
-func (p *MyBinlogParser) myWrite(data *row) {
+func (p *MyBinlogParser) myWrite(data *Row) {
 	var buf bytes.Buffer
 	// 输出GTID
 	if p.Config().ShowGTID && len(data.gtid) > 0 {
@@ -756,7 +756,7 @@ func NewBinlogParser(ctx context.Context, cfg *BinlogParserConfig) (*MyBinlogPar
 
 	p.allTables = make(map[uint64]*Table)
 	p.jumpGtids = make(map[*GtidSetInfo]bool)
-	p.ch = make(chan *row, cfg.Threads)
+	p.ch = make(chan *Row, cfg.Threads)
 
 	p.write1 = p
 
